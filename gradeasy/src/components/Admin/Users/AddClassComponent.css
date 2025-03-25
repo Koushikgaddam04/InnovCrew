@@ -1,0 +1,68 @@
+.container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .add-class-btn {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+  
+  .add-class-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 300px;
+  }
+  
+  .popup-actions button {
+    margin: 5px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .popup-actions button:first-child {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .popup-actions button:last-child {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .class-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .class-list li {
+    padding: 8px;
+    background: #f4f4f4;
+    margin: 5px 0;
+    border-radius: 3px;
+  }
+  

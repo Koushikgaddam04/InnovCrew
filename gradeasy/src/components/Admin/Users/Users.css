@@ -1,69 +1,188 @@
 /* src/components/Admin/Users/Users.css */
 
+/* Basic Reset & Body */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+/* Notification Icon */
+.notification-icon {
+  cursor: pointer;
+  position: relative;
+  left: 1180px; /* Adjust if needed */
+}
+
+/* Main Container */
+.container {
+  display: flex;
+  margin: 20px;
+  gap: 20px;
+}
+
+/* Slideshow Section */
+.slideshow-container {
+  flex: 2;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.add-button {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.add-button button {
+  padding: 10px;
+  background: blue;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Info Boxes on the Right */
+.info-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-box {
+  background: #ddd;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-box p {
+  margin: 5px 0;
+}
+
+/* Slideshow */
+.slideshow {
+  width: 100%;
+  height: 200px;
+  background: #ccc;
+  display: flex;
+  overflow: hidden;
+}
+
+.slide {
+  min-width: 100%;
+  transition: transform 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: #999;
+  color: white;
+}
+
+/* Class Section */
+.class-section {
+  margin: 20px;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.class-section h2 {
+  margin-top: 0;
+}
+
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  flex: 2;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.classes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.class-item {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  width: 120px;
+  text-align: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer; /* so user knows it's clickable */
+  transition: background 0.3s;
+}
+
+.class-item:hover {
+  background: #0056b3;
+}
+
 /* 
-   1) Overall Container (wavey background)
-   We'll replicate the wave shapes from Dashboard.css
+   NEW: Year Header for each year block 
+*/
+.year-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px; /* spacing above each year block */
+}
+
+.year-header h3 {
+  margin: 0;
+}
+
+.add-year-btn {
+  background: rgb(27, 166, 39);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.add-year-btn:hover {
+  background: rgb(22, 98, 28);
+}
+
+/* 
+   The table for selectedClass
+   We'll place it in a white container, same style as .admin-users-page
 */
 .admin-users-page {
-  position: relative;
-  margin-top: 20px;
-  padding: 40px 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-  overflow: hidden;
-  background: #ffffff;
-  z-index: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* Wave shapes using ::before & ::after */
-.admin-users-page::before {
-  content: "";
-  position: absolute;
-  top: -120px;
-  left: -100px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle at center, #5c6bc0 0%, transparent 70%);
-  opacity: 0.25;
-  z-index: 0;
-  border-radius: 50%;
-}
-
-.admin-users-page::after {
-  content: "";
-  position: absolute;
-  bottom: -120px;
-  right: -100px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle at center, #9fa8da 0%, transparent 70%);
-  opacity: 0.2;
-  z-index: 0;
-  border-radius: 50%;
-}
-
-/* 
-   2) Heading
-*/
 .admin-users-page h2 {
-  position: relative;
-  z-index: 1;
-  font-size: 28px;
-  margin-bottom: 25px;
-  color: #333;
-  text-align: center;
+  font-size: 24px;
+  margin-bottom: 15px;
 }
 
-/* 
-   3) Table Container
-*/
+/* Table Container */
 .users-table-container {
-  position: relative;
-  z-index: 1;
   overflow-x: auto;
   margin-top: 20px;
 }
 
+/* The table itself */
 .users-table {
   width: 100%;
   border-collapse: collapse;
@@ -97,13 +216,118 @@
 }
 
 /* 
-   4) Responsive
+  ==============================
+       RESPONSIVE STYLES
+  ==============================
 */
-@media (max-width: 768px) {
-  .admin-users-page {
-    padding: 30px 20px;
-  }
-  .admin-users-page h2 {
-    font-size: 24px;
+@media (max-width: 992px) {
+  .add-button button {
+    padding: 8px;
   }
 }
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* stack slideshow & info container */
+  }
+
+  .slideshow-container,
+  .info-container {
+    width: 100%;
+    margin: 0;
+  }
+
+  .info-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .info-box {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 10px;
+  }
+
+  .class-section {
+    margin: 10px;
+  }
+
+  .class-item {
+    width: calc(50% - 10px); /* 2 items per row on mobile */
+  }
+
+  .admin-users-page {
+    margin: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide {
+    font-size: 20px;
+  }
+
+  .class-item {
+    width: calc(50% - 10px);
+    font-size: 14px;
+  }
+
+  .admin-users-page h2 {
+    font-size: 20px;
+  }
+}
+
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  width: 300px;
+  text-align: center;
+}
+
+.popup-content h3 {
+  margin-top: 0;
+}
+
+.popup-content input {
+  width: 80%;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.popup-buttons button {
+  padding: 8px 14px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.popup-buttons button:first-child {
+  background: #28a745;
+  color: white;
+}
+
+.popup-buttons button:last-child {
+  background: #dc3545;
+  color: white;
+}
+

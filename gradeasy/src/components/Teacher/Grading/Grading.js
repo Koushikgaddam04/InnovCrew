@@ -1,16 +1,37 @@
 // src/components/Teacher/Grading/Grading.js
-import React from "react";
+import React, { useState } from "react";
 import "./Grading.css";
 
 const Grading = () => {
+  // Optional teacher guidelines for AI
+  const [evaluationGuidelines, setEvaluationGuidelines] = useState("");
+
+  const handleSaveGuidelines = () => {
+    console.log("Teacher guidelines updated:", evaluationGuidelines);
+    // Here you could send these guidelines to a backend or store them in localStorage
+  };
+
   return (
     <div className="grading-container">
+      {/* Guidelines Section at the top */}
+
       {/* Header */}
       <div className="grading-header">
         <h2>Grading Center</h2>
         <p>Review and manage AI-assisted grading</p>
       </div>
 
+      <div className="guidelines-section">
+        <h3>Teacher Evaluation Guidelines (Optional)</h3>
+        <textarea
+          value={evaluationGuidelines}
+          onChange={(e) => setEvaluationGuidelines(e.target.value)}
+          placeholder="Add instructions for the AI model..."
+        />
+        <button className="save-guidelines-btn" onClick={handleSaveGuidelines}>
+          Save Guidelines
+        </button>
+      </div>
       {/* Grading Sections */}
       <div className="grading-sections">
         {/* Pending Assignments List */}
@@ -19,9 +40,24 @@ const Grading = () => {
             <h3>Pending Assignments</h3>
           </div>
           <div className="grading-box-content">
-            <AssignmentItem title="Mathematics Quiz 3" due="Oct 15, 2024" pending="25" color="yellow" />
-            <AssignmentItem title="Science Test 2" due="Oct 12, 2024" pending="12" color="green" />
-            <AssignmentItem title="English Essay" due="Oct 10, 2024" pending="5" color="red" />
+            <AssignmentItem
+              title="Mathematics Quiz 3"
+              due="Oct 15, 2024"
+              pending="25"
+              color="yellow"
+            />
+            <AssignmentItem
+              title="Science Test 2"
+              due="Oct 12, 2024"
+              pending="12"
+              color="green"
+            />
+            <AssignmentItem
+              title="English Essay"
+              due="Oct 10, 2024"
+              pending="5"
+              color="red"
+            />
           </div>
         </div>
 
@@ -37,13 +73,18 @@ const Grading = () => {
 
           <div className="grading-box-content">
             <GradingSection title="Question">
-              <p>Explain the process of photosynthesis and its importance in the ecosystem.</p>
+              <p>
+                Explain the process of photosynthesis and its importance in the
+                ecosystem.
+              </p>
             </GradingSection>
 
             <GradingSection title="Student Response">
               <div className="grading-response">
                 <p>
-                  Photosynthesis is the process where plants convert sunlight into energy. They use water and carbon dioxide to make glucose and oxygen...
+                  Photosynthesis is the process where plants convert sunlight
+                  into energy. They use water and carbon dioxide to make glucose
+                  and oxygen...
                 </p>
               </div>
             </GradingSection>
@@ -51,8 +92,16 @@ const Grading = () => {
             <GradingSection title="AI Analysis">
               <AIAnalysis
                 confidence="85%"
-                keyPoints={["Basic process explanation", "Reactants and products mentioned", "Ecological importance"]}
-                missingElements={["Chlorophyll's role", "Light-dependent reactions", "Detailed chemical equation"]}
+                keyPoints={[
+                  "Basic process explanation",
+                  "Reactants and products mentioned",
+                  "Ecological importance",
+                ]}
+                missingElements={[
+                  "Chlorophyll's role",
+                  "Light-dependent reactions",
+                  "Detailed chemical equation",
+                ]}
               />
             </GradingSection>
 
