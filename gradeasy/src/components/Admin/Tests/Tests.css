@@ -1,0 +1,128 @@
+/* src/components/Admin/Tests/Tests.css */
+
+/* 
+   1) Overall Container (wavey background)
+   Similar wave shapes
+*/
+.admin-tests-page {
+  position: relative;
+  margin-top: 20px;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  overflow: hidden;
+  background: #ffffff;
+  z-index: 1;
+}
+
+.admin-tests-page::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at center, #5c6bc0 0%, transparent 70%);
+  opacity: 0.25;
+  z-index: 0;
+  border-radius: 50%;
+}
+
+.admin-tests-page::after {
+  content: "";
+  position: absolute;
+  bottom: -120px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at center, #9fa8da 0%, transparent 70%);
+  opacity: 0.2;
+  z-index: 0;
+  border-radius: 50%;
+}
+
+/* 
+   2) Heading
+*/
+.admin-tests-page h2 {
+  position: relative;
+  z-index: 1;
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #333;
+  text-align: center;
+}
+
+/* 
+   3) Create Test Button
+*/
+.create-test-btn {
+  position: relative;
+  z-index: 1;
+  padding: 8px 16px;
+  background: #1565C0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 20px;
+  transition: background 0.3s;
+}
+
+.create-test-btn:hover {
+  background: #0D47A1;
+}
+
+/* 
+   4) Table Container
+*/
+.tests-table-container {
+  position: relative;
+  z-index: 1;
+  overflow-x: auto;
+}
+
+.tests-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.tests-table th,
+.tests-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.tests-table th {
+  background: #f1f1f1;
+  font-weight: 600;
+}
+
+.tests-table tr:hover {
+  background: #fafafa;
+}
+
+.tests-table button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+/* 
+   5) Responsive
+*/
+@media (max-width: 768px) {
+  .admin-tests-page {
+    padding: 30px 20px;
+  }
+  .admin-tests-page h2 {
+    font-size: 24px;
+  }
+}

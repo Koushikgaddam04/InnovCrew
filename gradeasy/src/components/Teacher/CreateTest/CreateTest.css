@@ -1,0 +1,187 @@
+/* =======================
+   Modern & Stylish Create Test Page
+   ======================= */
+
+/* Overall Page Setup */
+.create-test-page {
+    min-height: 100vh;
+    background: linear-gradient(
+      to bottom right,
+      #e3f2fd 0%,
+      #fafafa 50%,
+      #f0f4c3 100%
+    );
+    /* Light pastel gradient to keep it professional & subtle */
+    position: relative;
+    padding-top: 20px; /* Leaves space for the navbar */
+  }
+  
+  /* Decorative angled shape behind the container */
+  .create-test-page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(135deg, #80d8ff 0%, #b9f6ca 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 60%, 0 100%);
+    z-index: 0;
+    opacity: 0.25; /* So it won't overpower the container */
+  }
+  
+  /* Container for the form (keeps the same format) */
+  .form-container {
+    width: 1200px; /* As requested, 1200px wide */
+    margin: 40px auto; /* horizontally centered near the top */
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    position: relative; 
+    z-index: 1; /* Above the angled shape */
+    text-align: center;
+  }
+  
+  /* Title */
+  .form-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* The question list container */
+  .question-list {
+    margin-top: 20px;
+  }
+  
+  /* Each question row */
+  .question-row {
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Label */
+  .question-label {
+    font-weight: bold;
+    margin-right: 8px;
+    white-space: nowrap;
+    color: #333;
+  }
+  
+  /* Input */
+  .question-input {
+    flex: 1;
+    padding: 8px;
+    margin-right: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+  }
+  
+  /* Delete Button */
+  .delete-btn {
+    background: #ff5252;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s;
+  }
+  
+  .delete-btn:hover {
+    background: #d32f2f;
+    transform: translateY(-1px);
+  }
+  
+  /* Button Group (Reset & Submit) */
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+  }
+  
+  /* Reset & Submit Buttons */
+  .reset-btn,
+  .submit-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+  
+  .reset-btn {
+    background: #f44336;
+  }
+  
+  .reset-btn:hover {
+    background: #d32f2f;
+    transform: translateY(-1px);
+  }
+  
+  .submit-btn {
+    background: #43a047;
+  }
+  
+  .submit-btn:hover {
+    background: #388e3c;
+    transform: translateY(-1px);
+  }
+  
+  /* + Add Question button (top-right, below navbar) */
+  .fixed-add-btn {
+    position: fixed;
+    top: 80px; /* Adjust as needed for your navbar height */
+    right: 20px;
+    background: #1565c0;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: background 0.3s, transform 0.3s;
+  }
+  
+  .fixed-add-btn:hover {
+    background: #0d47a1;
+    transform: translateY(-2px);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 1300px) {
+    .form-container {
+      width: 90%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .question-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .question-input {
+      margin-top: 8px;
+      margin-right: 0;
+      width: 100%;
+    }
+    .delete-btn {
+      margin-top: 8px;
+    }
+  }
+  

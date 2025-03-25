@@ -1,0 +1,50 @@
+/* src/components/Admin/AdminNavbar/AdminNavbar.css */
+
+/* Main navbar container */
+.admin-navbar {
+  height: 60px;
+  background: #424242; /* dark grey */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  left: 250px; /* if sidebar is 250px wide */
+  right: 0;
+  z-index: 999;
+
+  /* Subtle shadow for the navbar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar title on the left */
+.navbar-title {
+  font-size: 20px;
+  margin: 0;
+  color: #ffc107; /* yellow accent text */
+}
+
+/* Right side container (for logout, icons, etc.) */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Logout button link */
+.logout-btn {
+  background: #ffc107;      /* bright yellow */
+  color: #424242;          /* dark grey text */
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Hover effect */
+.logout-btn:hover {
+  background: #ffb300;     /* slightly darker yellow */
+  color: #ffffff;          /* white text on hover */
+}

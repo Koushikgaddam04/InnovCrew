@@ -1,0 +1,80 @@
+/* src/components/Student/Navbar/StudentNavbar.css */
+
+/* Ensure the page background is set elsewhere (e.g. body) */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5F5; /* default background */
+    font-family: "Roboto", sans-serif;
+  }
+  
+  /* Container for the entire navbar (with wave) */
+  .student-navbar {
+    position: relative;
+    width: 100%;
+    min-height: 100px; /* bigger gradient area */
+    background: linear-gradient(90deg, #1565C0 0%, #0D47A1 100%);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Wave shape at the bottom */
+  .student-navbar::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35px; /* wave height */
+    background-color: #F5F5F5;
+    z-index: 1;
+    clip-path: ellipse(50% 100% at 50% 100%);
+  }
+  
+  /* Navbar content above the wave */
+  .navbar-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px; /* matches min-height of the navbar */
+    padding: 0 40px;
+  }
+  
+  /* Logo (left side) */
+  .student-logo {
+    color: #FFC107; /* professional golden-amber for strong contrast */
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0;
+    /* text-shadow for readability */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  }
+  
+  /* Nav Links (right side) */
+  .student-nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .student-nav-links li {
+    display: inline-block;
+  }
+  
+  .student-nav-links a {
+    text-decoration: none;
+    color: #FFC107; /* same golden-amber for consistency */
+    font-size: 17px;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .student-nav-links a:hover {
+    color: #FFE082; /* lighter amber on hover */
+  }

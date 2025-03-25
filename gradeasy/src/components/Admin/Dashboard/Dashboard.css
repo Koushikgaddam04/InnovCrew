@@ -1,0 +1,159 @@
+/* src/components/Admin/Dashboard/Dashboard.css */
+
+/* 
+   1) Overall Dashboard Container
+   We'll create a wave-like background with radial gradients using pseudo-elements.
+*/
+.admin-dashboard-page {
+  position: relative;
+  margin-top: 20px;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  overflow: hidden; /* so wave shapes don't overflow */
+  background: #ffffff; /* white background for the content area */
+  z-index: 1;
+}
+
+/* Wave / Gradient background behind the container (top-left) */
+.admin-dashboard-page::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at center, #5c6bc0 0%, transparent 70%);
+  opacity: 0.25;
+  z-index: 0;
+  border-radius: 50%;
+}
+
+/* Additional wave shape (bottom-right) */
+.admin-dashboard-page::after {
+  content: "";
+  position: absolute;
+  bottom: -120px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at center, #9fa8da 0%, transparent 70%);
+  opacity: 0.2;
+  z-index: 0;
+  border-radius: 50%;
+}
+
+/* 
+   2) Heading
+   We'll keep it above the wave shapes.
+*/
+.admin-dashboard-page h2 {
+  position: relative;
+  z-index: 1;
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #333;
+  text-align: center;
+}
+
+/* 
+   3) Card Grid
+   We'll animate the cards on hover for a lively effect.
+*/
+.card-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+/* If using a card class (like in AdminCard), let's ensure the styling is nice. */
+.admin-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.admin-card-icon {
+  font-size: 32px;
+  color: #3f51b5;
+  margin-bottom: 10px;
+}
+
+.admin-card-content h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.admin-card-content p {
+  margin: 2px 0 0;
+  font-size: 16px;
+  color: #555;
+}
+
+/* 
+   4) The lower section for Recent Activities
+*/
+.dashboard-lower {
+  position: relative;
+  z-index: 1;
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.dashboard-lower h3 {
+  margin-top: 0;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.dashboard-lower ul {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: circle;
+}
+
+.dashboard-lower li {
+  margin-bottom: 8px;
+  color: #555;
+}
+
+/* 
+   5) Responsive Adjustments
+*/
+@media (max-width: 768px) {
+  .admin-dashboard-page {
+    padding: 30px 20px;
+  }
+
+  .admin-dashboard-page h2 {
+    font-size: 24px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr; /* single column on smaller screens */
+  }
+
+  .dashboard-lower {
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,54 @@
+/* src/components/Admin/AdminLayout.css */
+
+/* The container for everything */
+.admin-layout {
+    /* We do NOT do 'display: flex' here because the sidebar & navbar are fixed */
+    /* We'll let the sidebar and navbar fix themselves; the main content can fill remaining space. */
+    position: relative;
+    min-height: 100vh;
+    background: #f4f6f9; /* page background color */
+  }
+  
+  /* NAVBAR - fixed top */
+  .admin-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;  /* spans entire width from left to right */
+    right: 0;
+    height: 60px;
+    /* background: #283593; */
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+  }
+  
+  .admin-navbar h2 {
+    font-size: 20px;
+    margin: 0;
+  }
+  
+  /* SIDEBAR - fixed left */
+  .admin-sidebar {
+    position: fixed;
+    top: 60px; /* below the navbar height */
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 60px); /* fill the rest of the screen below navbar */
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* MAIN CONTENT */
+  .admin-main {
+    /* push content to the right by 250px (sidebar width) */
+    margin-left: 250px;
+    /* push content down by 60px (navbar height) */
+    margin-top: 60px;
+    padding: 20px;
+    min-height: calc(100vh - 60px);
+    box-sizing: border-box;
+  }
+  

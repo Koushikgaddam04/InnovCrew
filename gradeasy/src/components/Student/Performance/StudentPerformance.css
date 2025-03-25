@@ -1,0 +1,57 @@
+/* src/components/Student/Performance/StudentPerformance.css */
+
+.performance-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 40px 60px;
+  box-sizing: border-box;
+}
+
+.performance-header {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.performance-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.performance-intro {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Table with shadow */
+.performance-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+}
+
+.performance-table th,
+.performance-table td {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  color: #333;
+  font-size: 15px;
+}
+
+.performance-table th {
+  background: #E3F2FD; /* Light blue header */
+  font-weight: 600;
+}
+
+.performance-table tr:hover {
+  background: #fafafa;
+}

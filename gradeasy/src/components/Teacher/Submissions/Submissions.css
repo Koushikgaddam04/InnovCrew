@@ -1,0 +1,192 @@
+/* src/components/Teacher/Submissions/Submissions.css */
+
+/* Overall container with gradient background */
+.submissions-container {
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #e0ecf4 0%, #fefefe 100%);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Header styling */
+.submissions-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.submissions-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.submissions-subtitle {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Filters Section */
+.submissions-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.submissions-search {
+  flex: 1 1 200px;
+  min-width: 200px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+.submissions-select {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+}
+
+/* Buttons */
+.submissions-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.refresh {
+  background-color: #007bff;
+}
+
+.refresh:hover {
+  background-color: #0056b3;
+}
+
+.process {
+  background-color: #28a745;
+}
+
+.process:hover {
+  background-color: #1f7c31;
+}
+
+/* Status Overview Cards */
+.submissions-status {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.status-card {
+  flex: 1;
+  max-width: 250px;
+  background: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.status-card:hover {
+  transform: translateY(-5px);
+}
+
+.status-card h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.status-card p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Specific card colors */
+.pending-card {
+  border-left: 5px solid #ffc107;
+}
+
+.processing-card {
+  border-left: 5px solid #17a2b8;
+}
+
+.completed-card {
+  border-left: 5px solid #28a745;
+}
+
+/* Submissions Table */
+.submissions-table-container {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.submissions-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.submissions-table th,
+.submissions-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  color: #333;
+}
+
+.submissions-table th {
+  background: #f8f8f8;
+  font-weight: bold;
+}
+
+.submission-badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Dynamic badge colors based on status */
+.submission-badge.pending {
+  background: #ffc107;
+  color: #333;
+}
+
+.submission-badge.processing {
+  background: #17a2b8;
+}
+
+.submission-badge.completed {
+  background: #28a745;
+}
+
+.action-btn {
+  padding: 8px 12px;
+  background: #6c757d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.action-btn:hover {
+  opacity: 0.9;
+}
+
+.no-results {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}

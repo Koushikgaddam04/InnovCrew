@@ -1,0 +1,103 @@
+/* src/components/Admin/Settings/Settings.css */
+
+/* 
+   1) Overall Container (wavey background)
+*/
+.admin-settings-page {
+  position: relative;
+  margin-top: 20px;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  overflow: hidden;
+  background: #ffffff;
+  z-index: 1;
+}
+
+.admin-settings-page::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at center, #5c6bc0 0%, transparent 70%);
+  opacity: 0.25;
+  z-index: 0;
+  border-radius: 50%;
+}
+
+.admin-settings-page::after {
+  content: "";
+  position: absolute;
+  bottom: -120px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at center, #9fa8da 0%, transparent 70%);
+  opacity: 0.2;
+  z-index: 0;
+  border-radius: 50%;
+}
+
+/* 
+   2) Heading
+*/
+.admin-settings-page h2 {
+  position: relative;
+  z-index: 1;
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #333;
+  text-align: center;
+}
+
+/* 
+   3) Settings Form
+*/
+.settings-form {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.settings-form label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.settings-form input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 10px;
+}
+
+.settings-form button {
+  width: 120px;
+  padding: 10px;
+  background: #1565C0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.settings-form button:hover {
+  background: #0D47A1;
+}
+
+/* 
+   4) Responsive
+*/
+@media (max-width: 768px) {
+  .admin-settings-page {
+    padding: 30px 20px;
+  }
+  .admin-settings-page h2 {
+    font-size: 24px;
+  }
+}

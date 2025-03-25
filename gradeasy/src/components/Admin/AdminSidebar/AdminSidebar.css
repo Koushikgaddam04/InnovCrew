@@ -1,0 +1,61 @@
+/* src/components/Admin/AdminSidebar/AdminSidebar.css */
+
+.admin-sidebar {
+  margin-top: 70px; /* space below navbar, adjust if needed */
+  width: 250px;
+  background: #2f2f2f; /* medium grey background */
+  color: white;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+
+  /* Rounded right corners */
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+
+  /* Subtle shadow */
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+.admin-sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.admin-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-sidebar ul li {
+  margin: 15px 0;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.admin-sidebar ul li a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+
+/* Hover: darker grey */
+.admin-sidebar ul li a:hover {
+  background: #404040; /* darker shade of grey */
+  text-decoration: none;
+}
+
+/* Optional active link styling */
+.admin-sidebar ul li a.active {
+  background: #404040; 
+  font-weight: bold;
+}
