@@ -10,9 +10,9 @@ const router = express.Router();
 
 // Register Student
 router.post("/register", async (req, res) => {
-  const { name, email, password, department } = req.body;
+  const { name, email, password, year,department } = req.body;
 
-  if (!name || !email || !password || !department) {
+  if (!name || !email || !password || !department || !year) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
     if (existingStudent) return res.status(400).json({ error: "Student already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const student = await Student.create({ name, email, password: hashedPassword, department });
+    const student = await Student.create({ name, email, password: hashedPassword,year, department });
 
     res.status(201).json({ message: "Student registered successfully" });
   } catch (err) {

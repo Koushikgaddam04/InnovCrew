@@ -1,110 +1,145 @@
-import React, { useState } from "react";
+
+
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import { StoreContext } from "../../Context/storecontext";
+import axios from "axios";
 
 const Login = () => {
+  const { setToken, role } = useContext(StoreContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [secretCode, setSecretCode] = useState(""); // Secret code for admin
+  const [error, setError] = useState(""); // Store login error messages
   const navigate = useNavigate();
 
-  // State to track the selected role and form type
-  const [role, setRole] = useState("Student");
-  const [isSignup, setIsSignup] = useState(false);
-
-  // ======= REMOVE OR COMMENT OUT THE AUTO-REDIRECT =======
-  // useEffect(() => {
-  //   const alreadyLoggedIn = localStorage.getItem("loggedIn");
-  //   const savedRole = localStorage.getItem("role");
-  //   if (alreadyLoggedIn === "true" && savedRole) {
-  //     // This line auto-redirects the user to their dashboard:
-  //     navigate(`/${savedRole.toLowerCase()}`);
-  //   }
-  // }, [navigate]);
-  // ========================================================
-
-  // Handle login/sign-up
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setError(""); // Reset error before login attempt
 
-    // For now, skip real validation. Just set local storage and navigate.
-    localStorage.setItem("loggedIn", "true");
-    localStorage.setItem("role", role);
+    try {
+      const requestData = { email, password };
+      if (role === "admin") {
+        requestData.secretCode = secretCode; // Add secret code for admin login
+      }
 
-    // Navigate to the correct dashboard
-    navigate(`/${role.toLowerCase()}`);
+      const response = await axios.post(`http://localhost:7656/api/${role}/login`, requestData);
+
+      if (response.data.token) {
+        setToken(response.data.token);
+        localStorage.setItem("role", role);
+
+        // Redirect based on role
+        if (role === "student") {
+          navigate("/student");
+        } else if (role === "teacher") {
+          navigate("/teacher");
+        } else if (role === "admin") {
+          navigate("/admin");
+        }
+      }
+    } catch (error) {
+      setError("Login failed! Please check your credentials.");
+      console.error("Login failed", error);
+    }
+  };
+
+  const handleRegisterRedirect = () => {
+    if (role === "student") {
+      navigate("/register/student");
+    } else if (role === "teacher") {
+      navigate("/register/teacher");
+    }
   };
 
   return (
-    <div className="login-container">
-      {/* Top Toggle for Student / Teacher / Admin */}
-      <div className="toggle-container">
-        <button
-          className={`toggle-button ${role === "Student" ? "active" : ""}`}
-          onClick={() => setRole("Student")}
-        >
-          Student
-        </button>
-        <button
-          className={`toggle-button ${role === "Teacher" ? "active" : ""}`}
-          onClick={() => setRole("Teacher")}
-        >
-          Teacher
-        </button>
-        <button
-          className={`toggle-button ${role === "Admin" ? "active" : ""}`}
-          onClick={() => setRole("Admin")}
-        >
-          Admin
-        </button>
+    <div style={containerStyle}>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin} style={formStyle}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          style={inputStyle}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          style={inputStyle}
+        />
 
-        {/* Sliding blue background */}
-        <div
-          className="toggle-bg"
-          style={{
-            left:
-              role === "Teacher" ? "110px"
-              : role === "Admin" ? "220px"
-              : "0px",
-          }}
-        ></div>
-      </div>
+        {/* Show Secret Code input only if admin is logging in */}
+        {role === "admin" && (
+          <input
+            type="text"
+            placeholder="Secret Code"
+            value={secretCode}
+            onChange={(e) => setSecretCode(e.target.value)}
+            required
+            style={inputStyle}
+          />
+        )}
 
-      {/* Sliding Login / Signup Forms */}
-      <div className="slider-container">
-        <div className={`form-slider ${isSignup ? "shift-left" : ""}`}>
-          {/* --- LOGIN FORM --- */}
-          <div className="form-box login-form">
-            <h2>Login as {role}</h2>
-            <form onSubmit={handleSubmit}>
-              <input type="text" placeholder="Username" required />
-              <input type="password" placeholder="Password" required />
-              <button className="btn-primary" type="submit">
-                Log In
-              </button>
-            </form>
-            <p className="toggle-text" onClick={() => setIsSignup(true)}>
-              Don’t have an account? Sign up
-            </p>
-          </div>
+        <button type="submit" style={buttonStyle}>Login</button>
 
-          {/* --- SIGNUP FORM --- */}
-          <div className="form-box signup-form">
-            <h2>Sign Up</h2>
-            <form onSubmit={handleSubmit}>
-              <input type="text" placeholder="Username" required />
-              <input type="email" placeholder="Email" required />
-              <input type="tel" placeholder="Phone Number" required />
-              <input type="password" placeholder="Password" required />
-              <button className="btn-primary" type="submit">
-                Sign Up
-              </button>
-            </form>
-            <p className="toggle-text" onClick={() => setIsSignup(false)}>
-              Already have an account? Log in
-            </p>
-          </div>
-        </div>
-      </div>
+        {error && <p style={errorStyle}>{error}</p>}
+      </form>
+
+      {role !== "admin" && (
+        <p>
+          Don't have an account?{" "}
+          <button onClick={handleRegisterRedirect} style={linkButtonStyle}>
+            Register
+          </button>
+        </p>
+      )}
     </div>
   );
+};
+
+// Styles for better UI
+const containerStyle = {
+  textAlign: "center",
+  marginTop: "50px",
+};
+
+const formStyle = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+};
+
+const inputStyle = {
+  margin: "10px",
+  padding: "10px",
+  width: "250px",
+};
+
+const buttonStyle = {
+  padding: "10px 20px",
+  marginTop: "10px",
+  backgroundColor: "#007BFF",
+  color: "white",
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+};
+
+const errorStyle = {
+  color: "red",
+  marginTop: "10px",
+};
+
+const linkButtonStyle = {
+  background: "none",
+  border: "none",
+  color: "#007BFF",
+  cursor: "pointer",
 };
 
 export default Login;

@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import StoreProvider from './Context/storecontext';  // ✅ Import StoreProvider
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <StoreProvider>  {/* ✅ Wrap your app inside StoreProvider */}
+      <App />
+    </StoreProvider>
   </React.StrictMode>
 );
 

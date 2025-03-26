@@ -4,24 +4,28 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js"; // Ensure the `.js` extension is included
 
 // Import routes
+import adminRoutes from "./routes/admin.js";
 import authRoutes from "./routes/auth.js";
 import teacherRoutes from "./routes/teachers.js";
 import assignmentRoutes from "./routes/assignments.js";
-
+import studentRoutes from "./routes/students.js";
 dotenv.config(); // Load environment variables
 
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "*" }));
+//app.use(cors());
 
 // Connect to DB
 connectDB();
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/teachers", teacherRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/teacher", teacherRoutes);
+app.use("/api/student",studentRoutes);
 app.use("/api/assignments", assignmentRoutes);
 
 const PORT = process.env.PORT || 5000;
