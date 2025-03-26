@@ -8,19 +8,18 @@ const Grading = () => {
 
   const handleSaveGuidelines = () => {
     console.log("Teacher guidelines updated:", evaluationGuidelines);
-    // Here you could send these guidelines to a backend or store them in localStorage
+    // For now, we just log to console. You could store in localStorage or send to backend.
   };
 
   return (
     <div className="grading-container">
-      {/* Guidelines Section at the top */}
-
       {/* Header */}
       <div className="grading-header">
         <h2>Grading Center</h2>
         <p>Review and manage AI-assisted grading</p>
       </div>
 
+      {/* Guidelines Section at the top */}
       <div className="guidelines-section">
         <h3>Teacher Evaluation Guidelines (Optional)</h3>
         <textarea
@@ -32,6 +31,7 @@ const Grading = () => {
           Save Guidelines
         </button>
       </div>
+
       {/* Grading Sections */}
       <div className="grading-sections">
         {/* Pending Assignments List */}
@@ -132,13 +132,23 @@ const Grading = () => {
 // Reusable Components
 
 const AssignmentItem = ({ title, due, pending, color }) => {
+  // Called when Analyze is clicked
+  const handleAnalyze = () => {
+    console.log(`Analyzing ${title} assignment...`);
+  };
+
   return (
     <div className="assignment-item">
       <div>
         <h4>{title}</h4>
         <p>Due: {due}</p>
       </div>
-      <span className={`pending-label ${color}`}>{pending} Pending</span>
+      <div className="assignment-right">
+        <span className={`pending-label ${color}`}>{pending} Pending</span>
+        <button className="grading-btn analyze" onClick={handleAnalyze}>
+          Analyze
+        </button>
+      </div>
     </div>
   );
 };

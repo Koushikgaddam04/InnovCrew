@@ -10,7 +10,23 @@
   font-family: Arial, sans-serif;
 }
 
-/* OPTIONAL GUIDELINES SECTION */
+/* Header Styling */
+.grading-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.grading-header h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+.grading-header p {
+  font-size: 16px;
+  color: #777;
+}
+
+/* Guidelines Section (Optional teacher instructions) */
 .guidelines-section {
   width: 100%;
   max-width: 1200px;
@@ -46,26 +62,11 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  transition: background 0.3s;
 }
 
 .save-guidelines-btn:hover {
-  opacity: 0.9;
-}
-
-/* Header Styling */
-.grading-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.grading-header h2 {
-  font-size: 24px;
-  color: #333;
-}
-
-.grading-header p {
-  font-size: 16px;
-  color: #777;
+  background: #0056b3;
 }
 
 /* Main Sections Layout */
@@ -116,6 +117,13 @@
   padding: 10px;
   margin-bottom: 8px;
   border-radius: 5px;
+}
+
+/* Right side of assignment item (Pending label + Analyze button) */
+.assignment-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .assignment-item h4 {
@@ -236,7 +244,6 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-right: 8px;
   transition: background 0.3s, opacity 0.3s;
 }
 
@@ -252,4 +259,14 @@
 .next {
   background-color: #28a745;
   color: white;
+}
+
+/* Analyze Button next to Pending label */
+.grading-btn.analyze {
+  background-color: #ff9800; /* orange */
+  color: white;
+}
+
+.grading-btn.analyze:hover {
+  background-color: #fb8c00; /* darker orange */
 }
