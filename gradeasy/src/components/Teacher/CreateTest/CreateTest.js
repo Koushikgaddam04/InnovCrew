@@ -3,6 +3,7 @@ import "./CreateTest.css";
 
 const CreateTest = () => {
   const [questions, setQuestions] = useState([""]);
+  const [selectedClass, setSelectedClass] = useState("");
 
   // Add a new question
   const handleAddQuestion = () => {
@@ -25,13 +26,15 @@ const CreateTest = () => {
   // Reset the form
   const handleReset = () => {
     setQuestions([""]);
+    setSelectedClass(""); // Reset dropdown
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Selected Class:", selectedClass);
     console.log("Submitted Questions:", questions);
-    alert("Test submitted successfully!");
+    alert(`Test for ${selectedClass} submitted successfully!`);
   };
 
   return (
@@ -43,6 +46,22 @@ const CreateTest = () => {
 
       <div className="form-container">
         <h2>Create Test</h2>
+
+        {/* Class Dropdown */}
+        <label htmlFor="class" className="dropdown-label">Select Class:</label>
+        <select
+          id="class"
+          className="dropdown"
+          value={selectedClass}
+          onChange={(e) => setSelectedClass(e.target.value)}
+        >
+          <option value="" disabled>Select a class</option>
+          <option value="CSE">CSE</option>
+          <option value="AIML">AIML</option>
+          <option value="IOT">IOT</option>
+          <option value="DS">DS</option>
+        </select>
+
         <form onSubmit={handleSubmit}>
           <div className="question-list">
             {questions.map((q, index) => (
@@ -80,6 +99,7 @@ const CreateTest = () => {
             <button
               type="submit"
               className="submit-btn"
+              disabled={!selectedClass} // Prevent submission without class selection
             >
               Submit
             </button>
