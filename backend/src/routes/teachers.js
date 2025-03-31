@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import Teacher from "../models/Teacher.js";
-import authenticateUser from "../middlewares/auth.js";
+import {authMiddleware} from "../middlewares/auth.js";
 
 dotenv.config();
 const router = express.Router();
@@ -60,7 +60,7 @@ router.post("/login", async (req, res) => {
 });
 
 // Get Teacher Profile (Protected)
-router.get("/profile", authenticateUser, (req, res) => {
+router.get("/profile", authMiddleware, (req, res) => {
   if (req.userType !== "teacher") {
     return res.status(403).json({ error: "Access denied. Teachers only." });
   }

@@ -1,5 +1,5 @@
 import express from "express";
-import authenticateTeacher from "../middlewares/auth.js";
+import {authenticateTeacher} from "../middlewares/auth.js";
 import Assignment from "../models/Assignment.js";
 
 const router = express.Router();

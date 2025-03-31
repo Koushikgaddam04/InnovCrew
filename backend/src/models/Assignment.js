@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const assignmentSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  department: { type: String, required: true }, // Only students from this department can access
-  teacher: { type: mongoose.Schema.Types.ObjectId, ref: "Teacher", required: true }, // Teacher ID
+  department: { type: String, required: true },
+  date: { type: String, required: true }, 
   questions: [
     {
       question: { type: String, required: true },
