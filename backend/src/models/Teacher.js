@@ -7,6 +7,7 @@ const TeacherSchema = new mongoose.Schema({
   subjects: { type: [String], required: true }, // Example: ["Math", "Physics"]
   experience: { type: Number, required: true }, // Example: 5 years
   qualification: { type: String, required: true }, // Example: "PhD in Physics"
+  department: { type: String, required: true }, // Example: "Computer Science"
   role: { type: String, default: "teacher" },
 });
 

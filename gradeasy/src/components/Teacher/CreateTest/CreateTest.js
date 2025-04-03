@@ -4,14 +4,9 @@ import { StoreContext } from "../../../Context/storecontext";
 import "./CreateTest.css";
 
 const CreateTest = () => {
-<<<<<<< HEAD
-  const [questions, setQuestions] = useState([""]);
-  const [selectedClass, setSelectedClass] = useState("");
-=======
     const { token } = useContext(StoreContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
->>>>>>> f9e3b7f (working create test and added grading model schema)
 
     const [formData, setFormData] = useState({
         title: "",
@@ -21,33 +16,18 @@ const CreateTest = () => {
         questions: [{ question: "", type: "short" }],
     });
 
-    // Handle input changes for test details
+    // Handle input changes
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    // Handle question input changes
+    // Handle question changes
     const handleQuestionChange = (index, e) => {
         const updatedQuestions = [...formData.questions];
         updatedQuestions[index][e.target.name] = e.target.value;
         setFormData({ ...formData, questions: updatedQuestions });
     };
 
-<<<<<<< HEAD
-  // Reset the form
-  const handleReset = () => {
-    setQuestions([""]);
-    setSelectedClass(""); // Reset dropdown
-  };
-
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Selected Class:", selectedClass);
-    console.log("Submitted Questions:", questions);
-    alert(`Test for ${selectedClass} submitted successfully!`);
-  };
-=======
     // Add a new question
     const addQuestion = () => {
         setFormData((prevData) => ({
@@ -64,7 +44,6 @@ const CreateTest = () => {
             questions: prevData.questions.filter((_, i) => i !== index),
         }));
     };
->>>>>>> f9e3b7f (working create test and added grading model schema)
 
     // Reset the form
     const resetForm = () => {
@@ -78,73 +57,7 @@ const CreateTest = () => {
         setError(null);
     };
 
-<<<<<<< HEAD
-      <div className="form-container">
-        <h2>Create Test</h2>
-
-        {/* Class Dropdown */}
-        <label htmlFor="class" className="dropdown-label">Select Class:</label>
-        <select
-          id="class"
-          className="dropdown"
-          value={selectedClass}
-          onChange={(e) => setSelectedClass(e.target.value)}
-        >
-          <option value="" disabled>Select a class</option>
-          <option value="CSE">CSE</option>
-          <option value="AIML">AIML</option>
-          <option value="IOT">IOT</option>
-          <option value="DS">DS</option>
-        </select>
-
-        <form onSubmit={handleSubmit}>
-          <div className="question-list">
-            {questions.map((q, index) => (
-              <div className="question-row" key={index}>
-                <label className="question-label">
-                  Question {index + 1}:
-                </label>
-                <input
-                  type="text"
-                  value={q}
-                  onChange={(e) => handleQuestionChange(e, index)}
-                  className="question-input"
-                  placeholder="Enter your question here"
-                />
-                <button
-                  type="button"
-                  className="delete-btn"
-                  onClick={() => handleDeleteQuestion(index)}
-                >
-                  Delete
-                </button>
-              </div>
-            ))}
-          </div>
-
-          {/* Buttons */}
-          <div className="button-group">
-            <button
-              type="button"
-              className="reset-btn"
-              onClick={handleReset}
-            >
-              Reset
-            </button>
-            <button
-              type="submit"
-              className="submit-btn"
-              disabled={!selectedClass} // Prevent submission without class selection
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-=======
-    // Submit form
+    // Form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -156,18 +69,16 @@ const CreateTest = () => {
             return;
         }
 
-        console.log("Sending data:", formData); // Debugging - Check if the payload is correct
+        console.log("Sending data:", formData); // Debugging
 
         try {
             const response = await axios.post(
                 "http://localhost:7656/api/tests/",
                 formData,
-                {
-                    headers: { Authorization: `Bearer ${token}` },
-                }
+                { headers: { Authorization: `Bearer ${token}` } }
             );
 
-            console.log("Response:", response.data); // Debugging - Check server response
+            console.log("Response:", response.data); // Debugging
             alert(response.data.message || "Test Created Successfully!");
             resetForm();
         } catch (error) {
@@ -183,7 +94,7 @@ const CreateTest = () => {
             <div className="form-container">
                 <h2>Create Test</h2>
 
-                {error && <p className="error-message">{error}</p>} {/* Display error messages */}
+                {error && <p className="error-message">{error}</p>}
 
                 <form onSubmit={handleSubmit}>
                     <input
@@ -194,14 +105,20 @@ const CreateTest = () => {
                         onChange={handleChange}
                         required
                     />
-                    <input
-                        type="text"
+
+                    <label>Department:</label>
+                    <select
                         name="department"
-                        placeholder="Enter department (e.g., CSE, ECE)"
                         value={formData.department}
                         onChange={handleChange}
                         required
-                    />
+                    >
+                        <option value="" disabled>Select Department</option>
+                        <option value="AIML">AIML</option>
+                        <option value="IOT">IOT</option>
+                        <option value="CSE">CSE</option>
+                    </select>
+
                     <input
                         type="text"
                         name="subject"
@@ -210,6 +127,7 @@ const CreateTest = () => {
                         onChange={handleChange}
                         required
                     />
+
                     <input
                         type="date"
                         name="date"
@@ -270,7 +188,6 @@ const CreateTest = () => {
             </div>
         </div>
     );
->>>>>>> f9e3b7f (working create test and added grading model schema)
 };
 
 export default CreateTest;

@@ -3,16 +3,18 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import Teacher from "../models/Teacher.js";
-import {authMiddleware} from "../middlewares/auth.js";
+import Student from "../models/Student.js";
+import { authMiddleware } from "../middlewares/auth.js";
+
 
 dotenv.config();
 const router = express.Router();
 
 // Register Teacher
 router.post("/register", async (req, res) => {
-  const { name, email, password, subjects, experience, qualification } = req.body;
+  const { name, email, password, subjects, experience, qualification, department } = req.body;
 
-  if (!name || !email || !password || !subjects || !experience || !qualification) {
+  if (!name || !email || !password || !subjects || !experience || !qualification || !department) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
@@ -28,6 +30,7 @@ router.post("/register", async (req, res) => {
       subjects,
       experience,
       qualification,
+      department, // Added department field
     });
 
     res.status(201).json({ message: "Teacher registered successfully" });
@@ -60,11 +63,34 @@ router.post("/login", async (req, res) => {
 });
 
 // Get Teacher Profile (Protected)
-router.get("/profile", authMiddleware, (req, res) => {
-  if (req.userType !== "teacher") {
-    return res.status(403).json({ error: "Access denied. Teachers only." });
+router.get("/profile", authMiddleware, async (req, res) => {
+  try {
+    if (req.userType !== "teacher") {
+      return res.status(403).json({ error: "Access denied. Teachers only." });
+    }
+
+    const teacher = await Teacher.findById(req.user.id).select("-password"); // Exclude password from response
+    if (!teacher) return res.status(404).json({ error: "Teacher not found" });
+
+    res.json(teacher);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-  res.json(req.user);
+});
+router.get("/students", authMiddleware, async (req, res) => {
+  try {
+    const teacher = await Teacher.findById(req.user.id);
+    if (!teacher) {
+      return res.status(404).json({ error: "Teacher not found" });
+    }
+
+    // Fetch students with the same department
+    const students = await Student.find({ department: teacher.department });
+
+    res.json(students);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 export default router;

@@ -1,36 +1,51 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ViewTests = () => {
   const [tests, setTests] = useState([]);
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTests = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:7656/api/tests", {
+        const token = localStorage.getItem("token"); // Ensure authentication
+        const res = await axios.get("http://localhost:7656/api/student/tests", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setTests(response.data.tests);
+        setTests(res.data);
       } catch (error) {
-        setMessage("Error fetching tests");
+        console.error("Error fetching tests:", error);
       }
     };
 
     fetchTests();
   }, []);
 
+  const handleTestClick = (testId) => {
+    navigate(`/student/test/${testId}`); // Redirect to TestPage with testId
+  };
+
   return (
     <div>
       <h2>Available Tests</h2>
-      {message && <p>{message}</p>}
       {tests.length > 0 ? (
         <ul>
           {tests.map((test) => (
             <li key={test._id}>
-              <h3>{test.title}</h3>
-              <p>Department: {test.department}</p>
+              <button 
+                onClick={() => handleTestClick(test._id)} 
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "blue",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                  fontSize: "16px"
+                }}
+              >
+                {test.title}
+              </button>
             </li>
           ))}
         </ul>

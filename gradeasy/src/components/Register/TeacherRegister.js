@@ -14,6 +14,7 @@ const TeacherRegister = () => {
     subjects: "",
     experience: "",
     qualification: "",
+    department: "", // Added department field
   });
 
   const onChangeHandler = (event) => {
@@ -25,14 +26,14 @@ const TeacherRegister = () => {
     event.preventDefault();
     try {
       const response = await axios.post(`${url}/api/teacher/register`, data);
-      if (response.data.success) {
+      if (response.status === 201) {
         alert("Registration successful! Please log in.");
         navigate("/login?role=teacher");
       } else {
         alert(response.data.message);
       }
     } catch (error) {
-      alert("Error registering. Please try again.");
+      alert(error.response?.data?.error || "Error registering. Please try again.");
     }
   };
 
@@ -43,9 +44,10 @@ const TeacherRegister = () => {
         <input name="name" onChange={onChangeHandler} value={data.name} type="text" placeholder="Full Name" required />
         <input name="email" onChange={onChangeHandler} value={data.email} type="email" placeholder="Email" required />
         <input name="password" onChange={onChangeHandler} value={data.password} type="password" placeholder="Password" required />
-        <input name="subjects" onChange={onChangeHandler} value={data.subjects} type="text" placeholder="Subjects" required />
-        <input name="experience" onChange={onChangeHandler} value={data.experience} type="text" placeholder="Experience" required />
+        <input name="subjects" onChange={onChangeHandler} value={data.subjects} type="text" placeholder="Subjects (comma-separated)" required />
+        <input name="experience" onChange={onChangeHandler} value={data.experience} type="number" placeholder="Experience (years)" required />
         <input name="qualification" onChange={onChangeHandler} value={data.qualification} type="text" placeholder="Qualification" required />
+        <input name="department" onChange={onChangeHandler} value={data.department} type="text" placeholder="Department" required />
         <button type="submit">Register</button>
       </form>
     </div>
