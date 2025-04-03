@@ -1,0 +1,126 @@
+.chat-section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.chat-container {
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+.chat-header {
+  background: royalblue;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+
+
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background: white;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+.chat-input button {
+  background: royalblue;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background: darkblue;
+}
+
+/* Chat Toggle Button */
+.chat-toggle {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.chat-toggle button {
+  background: royalblue;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-toggle button:hover {
+  background: darkblue;
+}
+
+
+.chat-messages {
+  height: 250px;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+/* Ensure messages appear correctly */
+.message {
+  max-width: 80%;
+  padding: 8px 12px;
+  margin: 5px;
+  border-radius: 8px;
+  font-size: 14px;
+  word-wrap: break-word;
+}
+
+/* User messages in gold */
+.user-message {
+  align-self: flex-end;
+  background: gold;
+  color: black;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Chatbot messages in black */
+.assistant-message {
+  align-self: flex-start;
+  background: black;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+}

@@ -8,7 +8,7 @@ const assignmentSchema = new mongoose.Schema({
     {
       question: { type: String, required: true },
       type: { type: String, enum: ["short", "long"], required: true },
-    },
+    }
   ],
   createdAt: { type: Date, default: Date.now },
 });

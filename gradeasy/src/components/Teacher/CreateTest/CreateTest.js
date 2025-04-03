@@ -54,10 +54,11 @@ const CreateTest = () => {
             date: "",
             questions: [{ question: "", type: "short" }],
         });
+        setSelectedClass("");
         setError(null);
     };
 
-    // Form submission
+    // Submit form
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -75,7 +76,9 @@ const CreateTest = () => {
             const response = await axios.post(
                 "http://localhost:7656/api/tests/",
                 formData,
-                { headers: { Authorization: `Bearer ${token}` } }
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
             );
 
             console.log("Response:", response.data); // Debugging
@@ -94,7 +97,7 @@ const CreateTest = () => {
             <div className="form-container">
                 <h2>Create Test</h2>
 
-                {error && <p className="error-message">{error}</p>}
+                {error && <p className="error-message">{error}</p>} {/* Display error messages */}
 
                 <form onSubmit={handleSubmit}>
                     <input
@@ -105,20 +108,14 @@ const CreateTest = () => {
                         onChange={handleChange}
                         required
                     />
-
-                    <label>Department:</label>
-                    <select
+                    <input
+                        type="text"
                         name="department"
+                        placeholder="Enter department (e.g., CSE, ECE)"
                         value={formData.department}
                         onChange={handleChange}
                         required
-                    >
-                        <option value="" disabled>Select Department</option>
-                        <option value="AIML">AIML</option>
-                        <option value="IOT">IOT</option>
-                        <option value="CSE">CSE</option>
-                    </select>
-
+                    />
                     <input
                         type="text"
                         name="subject"
@@ -180,7 +177,7 @@ const CreateTest = () => {
                         >
                             Reset
                         </button>
-                        <button type="submit" className="submit-btn" disabled={loading}>
+                        <button type="submit" className="submit-btn" disabled={loading || !selectedClass}>
                             {loading ? "Submitting..." : "Create Test"}
                         </button>
                     </div>
