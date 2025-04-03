@@ -206,5 +206,269 @@
     {
         "role": "assistant",
         "content": "Yes, I understand. The provided code defines a MongoDB document for storing questions and answers in JSON format. The document includes the following fields:\n\n* **question:** The actual question.\n* **answers:** An array containing the possible answers to the question.\n* **turn:** A special field that indicates the start of a new turn.\n\nThe code also provides an example of how to retrieve and print the questions and answers from the database."
+    },
+    {
+        "role": "user",
+        "content": "So the student's assignment will have the following schema in MongoDB: const assignmentSchema = new mongoose.Schema({"
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "  title: { type: String, required: true },"
+    },
+    {
+        "role": "assistant",
+        "content": "```resaid that you already have the schema defined. But you can use this code to get all assignments from MongoDB and print the questions and answers."
+    },
+    {
+        "role": "user",
+        "content": "  department: { type: String, required: true },"
+    },
+    {
+        "role": "assistant",
+        "content": "```resaid that only students from this department can access. \n"
+    },
+    {
+        "role": "user",
+        "content": "  date: { type: String, required: true }, "
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "  questions: ["
+    },
+    {
+        "role": "assistant",
+        "content": "```resaid that this is the part where you will get the questions and answers from the assignment. \n"
+    },
+    {
+        "role": "user",
+        "content": "    {"
+    },
+    {
+        "role": "assistant",
+        "content": "```resaid that this is the format of the questions and answers. \n"
+    },
+    {
+        "role": "user",
+        "content": "      question: { type: String, required: true },"
+    },
+    {
+        "role": "assistant",
+        "content": "    },\n    {\n        question: { type: String, required: true },\n    }\n],\n```resaid that the type of the question can be either short or long. \n kobieta \n"
+    },
+    {
+        "role": "user",
+        "content": "      type: { type: String, enum: [\"short\", \"long\"], required: true },"
+    },
+    {
+        "role": "assistant",
+        "content": "    },\n```resaid that the date field is automatically populated with the current timestamp. \n kobieta \nRedacci\u00f3n \n"
+    },
+    {
+        "role": "user",
+        "content": "    },"
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "  ],"
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "  createdAt: { type: Date, default: Date.now },"
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "});.SoSo, you shiuld give me the output in the following schema:const GradingSchema = new mongoose.Schema({"
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "  testTitle: { type: String, required: true },  "
+    },
+    {
+        "role": "assistant",
+        "content": "```\ngrade: { type: Number, required: true }, \n"
+    },
+    {
+        "role": "user",
+        "content": "  testId: { type: mongoose.Schema.Types.ObjectId, ref: \"Test\", required: true },  "
+    },
+    {
+        "role": "assistant",
+        "content": "```\nKeywords_missed: [ { type: String, required: true } ], \nKeywords_mentioned: [ { type: String, required: true } ], \nanswer: { type: Boolean, required: true }, \nresponse: { type: String, required: true }, \ntimeTaken: { type: Number, required: true }, \ncreatedAt: { type: Date, default: Date.now }, \nupdatedAt: { type: Date, default: Date.now }, \n}). \n"
+    },
+    {
+        "role": "user",
+        "content": "  studentId: { type: mongoose.Schema.Types.ObjectId, ref: \"User\", required: true },  "
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "  responses: ["
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "    {"
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "      question: { type: String, required: true },"
+    },
+    {
+        "role": "assistant",
+        "content": "    },\n    {\n        question: { type: String, required: true },\n    }\n],"
+    },
+    {
+        "role": "user",
+        "content": "      studentAnswer: { type: String, required: true },"
+    },
+    {
+        "role": "assistant",
+        "content": "    },\n```"
+    },
+    {
+        "role": "user",
+        "content": "      grade: { type: String, required: true },"
+    },
+    {
+        "role": "assistant",
+        "content": "    }\n]\n```"
+    },
+    {
+        "role": "user",
+        "content": "      feedback: { type: String, required: true }"
+    },
+    {
+        "role": "assistant",
+        "content": "    }\n  ],\n});"
+    },
+    {
+        "role": "user",
+        "content": "    }"
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "  ],"
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "  overallGrade: { type: String, required: true },  "
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "  overallFeedback: { type: String, required: true },  "
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "  createdAt: { type: Date, default: Date.now }"
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "});"
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": ""
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "Did you understand?"
+    },
+    {
+        "role": "assistant",
+        "content": "Yes, I understand the schema for the Grading document. It appears to be a comprehensive representation of a student's performance on an assignment or test."
+    },
+    {
+        "role": "user",
+        "content": "Also, one more thing is that, you should give me the responses in that schema only. Follow the feedback schema that i gave you strictly, because I will take your input and directly upload in JSON format. So i dont want any extra information outside your JSON format. your response should start with '{' and end with '}'. I just need a JSON output from you with the given schema."
+    },
+    {
+        "role": "assistant",
+        "content": "```\n{\n  \"testTitle\": \"Assignment 1\",\n  \"grade\": 85,\n  \"testId\": \"63c81907488486558329253c\",\n  \"keywords_missed\": [],\n  \"keywords_mentioned\": [\"AI\", \"ML\"],\n  \"answer\": true,\n  \"response\": \"The use of AI and ML has significantly improved the efficiency and accuracy of various tasks.\",\n  \"timeTaken\": 45,\n  \"responses\": [\n    {\n      \"question\": \"Explain the concept of AI.\",\n      \"studentAnswer\": \"AI refers to the ability of a machine to perform tasks that typically require human intelligence.\"\n    },\n    {\n      \"question\": \"Discuss the applications of ML in healthcare.\",\n      \"studentAnswer\": \"ML algorithms can be used for tasks such as disease diagnosis, drug discovery, and personalized treatment recommendations.\"\n    }\n  ],\n  \"overallGrade\": \"A\",\n  \"overallFeedback\": \"Excellent performance. Keep up the good work!\"\n}\n```"
+    },
+    {
+        "role": "user",
+        "content": ""
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": ""
+    },
+    {
+        "role": "assistant",
+        "content": "```"
+    },
+    {
+        "role": "user",
+        "content": "So you gave me a sample output of yours? If yes then you did excellent. Give such responses when i give you student answers in a JSON format. If i give you that JSON format follow the schema strictly."
+    },
+    {
+        "role": "assistant",
+        "content": "Yes, I can provide responses in the desired JSON format based on the given schema. Please provide the student answers in JSON format, and I will generate the graded response according to the schema."
     }
 ]

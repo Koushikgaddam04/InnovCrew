@@ -11,36 +11,67 @@ const Login = () => {
   const [error, setError] = useState(""); // Store login error messages
   const navigate = useNavigate();
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   setError(""); // Reset error before login attempt
+
+  //   try {
+  //     const requestData = { email, password };
+  //     if (role === "admin") {
+  //       requestData.secretCode = secretCode; // Add secret code for admin login
+  //     }
+
+  //     const response = await axios.post(`http://localhost:7656/api/${role}/login`, requestData);
+
+  //     if (response.data.token) {
+  //       setToken(response.data.token);
+  //       localStorage.setItem("role", role);
+
+  //       // Redirect based on role
+  //       if (role === "student") {
+  //         navigate("/student");
+  //       } else if (role === "teacher") {
+  //         navigate("/teacher");
+  //       } else if (role === "admin") {
+  //         navigate("/admin");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     setError("Login failed! Please check your credentials.");
+  //     console.error("Login failed", error);
+  //   }
+  // };
+
+
+
+// Code for testing
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(""); // Reset error before login attempt
-
     try {
       const requestData = { email, password };
       if (role === "admin") {
         requestData.secretCode = secretCode; // Add secret code for admin login
       }
-
-      const response = await axios.post(`http://localhost:7656/api/${role}/login`, requestData);
-
-      if (response.data.token) {
-        setToken(response.data.token);
-        localStorage.setItem("role", role);
-
-        // Redirect based on role
-        if (role === "student") {
-          navigate("/student");
-        } else if (role === "teacher") {
-          navigate("/teacher");
-        } else if (role === "admin") {
-          navigate("/admin");
-        }
+      if (role === "student") {
+        navigate("/student");
+      } else if (role === "teacher") {
+        navigate("/teacher");
+      } else if (role === "admin") {
+        navigate("/admin");
       }
     } catch (error) {
       setError("Login failed! Please check your credentials.");
       console.error("Login failed", error);
     }
   };
+
+
+
+
+
+
 
   const handleRegisterRedirect = () => {
     if (role === "student") {

@@ -1,9 +1,12 @@
 // src/components/Student/Dashboard/StudentDashboard.js
-import React from "react";
+import React, { useState } from "react";
 import { FaCheckCircle, FaHourglassHalf, FaChartLine } from "react-icons/fa";
+import ChatWidget from "./ChatWidget"; // Ensure ChatWidget.js is in the same folder
 import "./StudentDashboard.css";
 
 const StudentDashboard = () => {
+  const [chatOpen, setChatOpen] = useState(false);
+
   return (
     <div className="dashboard-container">
       {/* Hero Section */}
@@ -14,12 +17,6 @@ const StudentDashboard = () => {
             Keep track of your upcoming tests, performance insights, and more!
           </p>
         </div>
-        {/* Optional illustration if you have an image file or an external URL */}
-        {/* <img
-          src="https://example.com/hero-illustration.png"
-          alt="Hero Illustration"
-          className="hero-illustration"
-        /> */}
       </div>
 
       {/* Cards Section */}
@@ -40,6 +37,20 @@ const StudentDashboard = () => {
           <p>85%</p>
         </div>
       </div>
+
+      {/* Chat Toggle Button */}
+      <div className="chat-toggle">
+        <button onClick={() => setChatOpen(!chatOpen)}>
+          {chatOpen ? "Close Chat" : "Open Chat"}
+        </button>
+      </div>
+
+      {/* Chat Widget Section (Only shows when chatOpen is true) */}
+      {chatOpen && (
+        <div className="chat-section">
+          <ChatWidget onClose={() => setChatOpen(false)} />
+        </div>
+      )}
     </div>
   );
 };
