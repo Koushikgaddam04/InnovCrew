@@ -7,6 +7,7 @@ const CreateTest = () => {
     const { token } = useContext(StoreContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [selectedClass, setSelectedClass] = useState(""); // ✅ Added missing state
 
     const [formData, setFormData] = useState({
         title: "",
@@ -54,7 +55,7 @@ const CreateTest = () => {
             date: "",
             questions: [{ question: "", type: "short" }],
         });
-        setSelectedClass("");
+        setSelectedClass(""); // ✅ Also reset selectedClass
         setError(null);
     };
 
@@ -70,12 +71,12 @@ const CreateTest = () => {
             return;
         }
 
-        console.log("Sending data:", formData); // Debugging
+        console.log("Sending data:", { ...formData, class: selectedClass }); // Debugging
 
         try {
             const response = await axios.post(
                 "http://localhost:7656/api/tests/",
-                formData,
+                { ...formData, class: selectedClass },
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }
@@ -97,7 +98,7 @@ const CreateTest = () => {
             <div className="form-container">
                 <h2>Create Test</h2>
 
-                {error && <p className="error-message">{error}</p>} {/* Display error messages */}
+                {error && <p className="error-message">{error}</p>}
 
                 <form onSubmit={handleSubmit}>
                     <input
@@ -124,6 +125,21 @@ const CreateTest = () => {
                         onChange={handleChange}
                         required
                     />
+
+                    {/* ✅ Dropdown for class */}
+                    <select
+                        name="selectedClass"
+                        value={selectedClass}
+                        onChange={(e) => setSelectedClass(e.target.value)}
+                        required
+                    >
+                        <option value="">Select Class</option>
+                        <option value="CSE">CSE</option>
+                        <option value="ECE">ECE</option>
+                        <option value="AIML">AIML</option>
+                        <option value="IOT">IOT</option>
+                        <option value="DS">DS</option>
+                    </select>
 
                     <input
                         type="date"

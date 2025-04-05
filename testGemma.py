@@ -1,52 +1,92 @@
-import ollama
-import pymongo
 import json
+import os
+import time
+import re
+from datetime import datetime
+import ollama
 
-# MongoDB setup
-MONGO_URI = "mongodb://localhost:27017/"  # Update if needed
-db_client = pymongo.MongoClient(MONGO_URI)
-db = db_client["education_db"]  # Database name
-collection = db["student_assignments"]  # Collection name
+def load_submissions(file_path):
+    """Load student submissions from a JSON file."""
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as file:
+            return json.load(file)
+    return []
 
-def chat_with_gemma(prompt):
-    """
-    Sends a prompt to the Gemma model via Ollama and ensures response follows the required JSON schema.
-    """
-    response = ollama.chat(
-        model="gemma",
-        messages=[{"role": "user", "content": prompt}],
+def save_grading_response(response, file_path="GradingResponse.json"):
+    """Save graded responses to a file."""
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as file:
+            data = json.load(file)
+    else:
+        data = []
+    
+    data.append(response)
+    with open(file_path, "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=4)
+
+def extract_json(text):
+    """Extract JSON from model response using regex."""
+    match = re.search(r'\{.*\}', text, re.DOTALL)  # Extract content inside {}
+    if match:
+        try:
+            return json.loads(match.group())  # Convert to JSON
+        except json.JSONDecodeError:
+            return None
+    return None
+
+def get_model_response(submission, retry=1):
+    """Send student submission to the model and return a valid JSON response."""
+    prompt = (
+        "Your task is to grade student test submissions in a strict and meaningful manner. Grade the points at a scale of 0-10. If answer does not match with the question even a bit, do not hesitate to give a zero "
+        "When you receive a submission, respond ONLY with a valid JSON object in this format:\n"
+        "{\n"
+        "  \"testTitle\": \"<string>\",\n"
+        "  \"testId\": \"<ObjectId as string>\",\n"
+        "  \"studentId\": \"<ObjectId as string>\",\n"
+        "  \"responses\": [\n"
+        "    {\n"
+        "      \"question\": \"<string>\",\n"
+        "      \"studentAnswer\": \"<string>\",\n"
+        "      \"grade\": \"<string>\",\n"
+        "      \"feedback\": \"<string>\"\n"
+        "    }\n"
+        "  ],\n"
+        "  \"overallGrade\": \"<string>\",\n"
+        "  \"overallFeedback\": \"<string>\",\n"
+        "  \"createdAt\": \"<ISO date string>\"\n"
+        "}\n"
+        "Do NOT include any extra explanation, markdown, or text. Only return valid JSON."
     )
     
-    response_text = response['message']['content']
+    test_prompt = f"Now grade this submission:\n{json.dumps(submission, indent=4)}"
+    full_prompt = prompt + "\n\n" + test_prompt
     
-    try:
-        # Ensure the response is valid JSON
-        formatted_response = json.loads(response_text)
-        
-        # Validate if response follows the required schema
-        required_keys = {"student_id", "name", "assignments", "feedback", "gradeArray"}
-        if not all(key in formatted_response for key in required_keys):
-            raise ValueError("Response does not match required schema.")
-        
-        # Insert into MongoDB
-        collection.insert_one(formatted_response)
-        print("Response saved to MongoDB.")
-    
-    except (json.JSONDecodeError, ValueError) as e:
-        print("Invalid response format:", e)
-        return None
-    
-    return formatted_response
+    response = ollama.chat(model="gemma", messages=[{"role": "user", "content": full_prompt}])
 
-# Chat loop
-while True:
-    user_input = input("You: ")
-    if user_input.lower() in ["exit", "quit"]:
-        print("Goodbye!")
-        break
+    raw_content = response["message"]["content"]
     
-    # Send user input to Gemma
-    gemma_response = chat_with_gemma(user_input)
+    graded_response = extract_json(raw_content)
+    if graded_response:
+        return graded_response
+
+    if retry > 0:
+        print("❌ Invalid JSON response. Retrying...")
+        return get_model_response(submission, retry - 1)
+
+    print("❌ Failed to get valid JSON after retry.")
+    return None
+
+def main():
+    """Main function to process all student submissions."""
+    submissions = load_submissions("submission.json")
     
-    if gemma_response:
-        print("Gemma Response:", json.dumps(gemma_response, indent=4))
+    for submission in submissions:
+        graded_response = get_model_response(submission)
+        if graded_response:
+            save_grading_response(graded_response)
+            print(f"✅ Grading for student {submission['studentId']} completed!")
+
+        time.sleep(1)  # Delay to avoid overwhelming the model
+
+if __name__ == "__main__":
+    main()

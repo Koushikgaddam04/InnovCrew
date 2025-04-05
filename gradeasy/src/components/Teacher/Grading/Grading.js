@@ -1,14 +1,58 @@
 // src/components/Teacher/Grading/Grading.js
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { StoreContext } from "../../../Context/storecontext";
 import "./Grading.css";
 
 const Grading = () => {
-  // Optional teacher guidelines for AI
+  const { token } = useContext(StoreContext);
   const [evaluationGuidelines, setEvaluationGuidelines] = useState("");
+  const [tests, setTests] = useState([]); // State for pending tests
+  const [loadingTests, setLoadingTests] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Fetch tests created by the teacher when component mounts
+  useEffect(() => {
+    const fetchTests = async () => {
+      setLoadingTests(true);
+      try {
+        const response = await axios.get("http://localhost:7656/api/tests", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        // Assuming response.data.tests contains the array of tests
+        setTests(response.data.tests);
+      } catch (err) {
+        console.error("Error fetching tests:", err);
+        setError("Failed to fetch tests.");
+      } finally {
+        setLoadingTests(false);
+      }
+    };
+
+    if (token) {
+      fetchTests();
+    }
+  }, [token]);
 
   const handleSaveGuidelines = () => {
     console.log("Teacher guidelines updated:", evaluationGuidelines);
-    // For now, we just log to console. You could store in localStorage or send to backend.
+    // You can add saving logic here (e.g., sending to backend)
+  };
+
+  // Function to trigger analysis for a specific test
+  const handleAnalyze = async (testId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:7656/api/grading/analyze/${testId}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert("Analysis triggered successfully!");
+      console.log("Analysis Response:", response.data);
+    } catch (err) {
+      console.error("Error triggering analysis:", err);
+      alert("Failed to trigger analysis.");
+    }
   };
 
   return (
@@ -19,7 +63,7 @@ const Grading = () => {
         <p>Review and manage AI-assisted grading</p>
       </div>
 
-      {/* Guidelines Section at the top */}
+      {/* Guidelines Section */}
       <div className="guidelines-section">
         <h3>Teacher Evaluation Guidelines (Optional)</h3>
         <textarea
@@ -32,97 +76,86 @@ const Grading = () => {
         </button>
       </div>
 
-      {/* Grading Sections */}
-      <div className="grading-sections">
-        {/* Pending Assignments List */}
-        <div className="grading-box">
-          <div className="grading-box-header">
-            <h3>Pending Assignments</h3>
-          </div>
-          <div className="grading-box-content">
+      {/* Pending Assignments Section */}
+      <div className="pending-assignments">
+        <h3>Pending Assignments</h3>
+        {loadingTests ? (
+          <p>Loading tests...</p>
+        ) : error ? (
+          <p className="error-message">{error}</p>
+        ) : tests.length === 0 ? (
+          <p>No tests available.</p>
+        ) : (
+          tests.map((test) => (
             <AssignmentItem
-              title="Mathematics Quiz 3"
-              due="Oct 15, 2024"
-              pending="25"
-              color="yellow"
+              key={test._id}
+              test={test}
+              onAnalyze={() => handleAnalyze(test._id)}
             />
-            <AssignmentItem
-              title="Science Test 2"
-              due="Oct 12, 2024"
-              pending="12"
-              color="green"
-            />
-            <AssignmentItem
-              title="English Essay"
-              due="Oct 10, 2024"
-              pending="5"
-              color="red"
-            />
+          ))
+        )}
+      </div>
+
+      {/* Current Grading Section (Example with dummy data) */}
+      <div className="grading-box grading-large">
+        <div className="grading-box-header grading-flex">
+          <h3>Science Test 2 - Question 3</h3>
+          <div>
+            <button className="grading-btn save">Save</button>
+            <button className="grading-btn next">Next</button>
           </div>
         </div>
 
-        {/* Current Grading Section */}
-        <div className="grading-box grading-large">
-          <div className="grading-box-header grading-flex">
-            <h3>Science Test 2 - Question 3</h3>
-            <div>
-              <button className="grading-btn save">Save</button>
-              <button className="grading-btn next">Next</button>
-            </div>
-          </div>
+        <div className="grading-box-content">
+          <GradingSection title="Question">
+            <p>
+              Explain the process of photosynthesis and its importance in the
+              ecosystem.
+            </p>
+          </GradingSection>
 
-          <div className="grading-box-content">
-            <GradingSection title="Question">
+          <GradingSection title="Student Response">
+            <div className="grading-response">
               <p>
-                Explain the process of photosynthesis and its importance in the
-                ecosystem.
+                Photosynthesis is the process where plants convert sunlight
+                into energy. They use water and carbon dioxide to make glucose
+                and oxygen...
               </p>
-            </GradingSection>
+            </div>
+          </GradingSection>
 
-            <GradingSection title="Student Response">
-              <div className="grading-response">
-                <p>
-                  Photosynthesis is the process where plants convert sunlight
-                  into energy. They use water and carbon dioxide to make glucose
-                  and oxygen...
-                </p>
-              </div>
-            </GradingSection>
+          <GradingSection title="AI Analysis">
+            <AIAnalysis
+              confidence="85%"
+              keyPoints={[
+                "Basic process explanation",
+                "Reactants and products mentioned",
+                "Ecological importance",
+              ]}
+              missingElements={[
+                "Chlorophyll's role",
+                "Light-dependent reactions",
+                "Detailed chemical equation",
+              ]}
+            />
+          </GradingSection>
 
-            <GradingSection title="AI Analysis">
-              <AIAnalysis
-                confidence="85%"
-                keyPoints={[
-                  "Basic process explanation",
-                  "Reactants and products mentioned",
-                  "Ecological importance",
-                ]}
-                missingElements={[
-                  "Chlorophyll's role",
-                  "Light-dependent reactions",
-                  "Detailed chemical equation",
-                ]}
+          <GradingSection title="Grade Assignment">
+            <div className="grading-score">
+              <span>AI Suggested Score:</span>
+              <strong>7/10</strong>
+            </div>
+            <div className="grading-input">
+              <input type="number" defaultValue="7" min="0" max="10" /> / 10
+            </div>
+            <div className="grading-feedback">
+              <label>Feedback</label>
+              <textarea
+                rows="3"
+                defaultValue="Good basic understanding of photosynthesis. Consider including more details..."
               />
-            </GradingSection>
-
-            {/* Grading Input */}
-            <GradingSection title="Grade Assignment">
-              <div className="grading-score">
-                <span>AI Suggested Score:</span>
-                <strong>7/10</strong>
-              </div>
-              <div className="grading-input">
-                <input type="number" defaultValue="7" min="0" max="10" /> / 10
-              </div>
-              <div className="grading-feedback">
-                <label>Feedback</label>
-                <textarea
-                  rows="3"
-                  defaultValue="Good basic understanding of photosynthesis. Consider including more details..."
-                />
-              </div>
-            </GradingSection>
-          </div>
+            </div>
+          </GradingSection>
         </div>
       </div>
     </div>
@@ -131,21 +164,20 @@ const Grading = () => {
 
 // Reusable Components
 
-const AssignmentItem = ({ title, due, pending, color }) => {
-  // Called when Analyze is clicked
-  const handleAnalyze = () => {
-    console.log(`Analyzing ${title} assignment...`);
-  };
-
+const AssignmentItem = ({ test, onAnalyze }) => {
   return (
     <div className="assignment-item">
       <div>
-        <h4>{title}</h4>
-        <p>Due: {due}</p>
+        <h4>{test.title}</h4>
+        <p>
+          Date: {new Date(test.date).toLocaleDateString()} | Subject: {test.subject}
+        </p>
       </div>
       <div className="assignment-right">
-        <span className={`pending-label ${color}`}>{pending} Pending</span>
-        <button className="grading-btn analyze" onClick={handleAnalyze}>
+        <span className="pending-label yellow">
+          {test.submissionsPending ? test.submissionsPending : 0} Pending
+        </span>
+        <button className="grading-btn analyze" onClick={onAnalyze}>
           Analyze
         </button>
       </div>
