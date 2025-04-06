@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { StoreContext } from "../../Context/storecontext";
+import "./TeacherRegister.css"
 
 const TeacherRegister = () => {
   const { url } = useContext(StoreContext);
@@ -39,8 +40,8 @@ const TeacherRegister = () => {
 
   return (
     <div className="register">
-      <h2>Teacher Registration</h2>
       <form onSubmit={onRegister}>
+        <h2>Teacher Registration</h2>
         <input name="name" onChange={onChangeHandler} value={data.name} type="text" placeholder="Full Name" required />
         <input name="email" onChange={onChangeHandler} value={data.email} type="email" placeholder="Email" required />
         <input name="password" onChange={onChangeHandler} value={data.password} type="password" placeholder="Password" required />

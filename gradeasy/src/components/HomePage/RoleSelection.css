@@ -1,0 +1,202 @@
+/* RoleSelection.css – Black/Grey/White Theme with Smooth Background Transition */
+
+/* Theme Variables */
+:root {
+  --primary: #000000;         /* Black for Student Button */
+  --secondary: #555555;       /* Grey for Teacher Button */
+  --tertiary: #ffffff;        /* White for Admin Button */
+  --background: linear-gradient(135deg, #000, #555, #fff); /* Bold gradient */
+  --card-bg: #ffffff;         /* Idle background now set to pure white */
+  --text-color: #212121;
+  --subtext-color: #6c757d;
+  --transition: 0.3s ease;
+  --font-family: "Josefin Sans", sans-serif;
+}
+
+/* Auth Background */
+.auth-background {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background);
+  width: 100%;
+  padding: 2rem;
+  transition: background 0.5s ease;
+  height: 120vh;
+}
+
+/* Role Selection Container */
+.container {
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 650px;
+  padding: 4rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-family);
+  transition: background 0.5s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Default classroom background */
+.container.default-bg {
+  background-image: url("../../icons/Classroom.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Hover-based background image for Student */
+.container:has(.stu:hover) {
+  background-image: url("../../icons/student.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Hover-based background image for Teacher */
+.container:has(.tea:hover) {
+  background-image: url("../../icons/teacher.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Hover-based background image for Admin */
+.container:has(.adm:hover) {
+  background-image: url("../../icons/admin.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Card Wrap */
+.card-wrap {
+  position: relative;
+}
+
+/* Card */
+.card {
+  width: 100%;
+  padding: 1rem 0;
+  margin: 0 auto;
+  background: transparent;
+  box-shadow: none;
+  opacity: 1;
+}
+
+/* Card Body */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card Title */
+.card-title {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Intro Paragraph */
+.card-body p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: var(--subtext-color);
+}
+
+/* Button Wrap */
+.btn-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Role Buttons */
+.btn {
+  color: var(--tertiary);
+  width: 10em;
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  border: none;
+  transition: all var(--transition);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  font-weight: 500;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect for buttons */
+.btn:hover {
+  transform: translateY(-3px);
+  opacity: 0.9;
+}
+
+/* Student Button – Black */
+.btn-register {
+  background-color: var(--primary);
+}
+
+/* Teacher Button – Grey */
+.btn-login {
+  background-color: var(--secondary);
+}
+
+/* Admin Button – White with dark text and border */
+.btn-admin {
+  background-color: var(--tertiary);
+  color: var(--text-color);
+  border: 1px solid var(--subtext-color);
+}
+
+/* Card styling */
+.card--welcome {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  transition: all 0.3s ease;
+  border: 1px solid #e6e6e6;
+}
+
+/* Card Hover Shadow */
+.card--welcome:hover {
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Button-specific hover gradients */
+.stu.btn:hover {
+  background-image: linear-gradient(135deg, #555, #fff);
+}
+
+.tea:hover {
+  background-image: linear-gradient(135deg, #555, #fff);
+}
+
+.adm:hover {
+  background-image: linear-gradient(135deg, #555, #fff);
+}
+
+/* Optional: background change on card when hovered */
+.card--welcome,
+.card--welcome:has(.stu:hover),
+.card--welcome:has(.tea:hover),
+.card--welcome:has(.adm:hover) {
+  background-color: rgba(255, 255, 255, 0.8);
+}

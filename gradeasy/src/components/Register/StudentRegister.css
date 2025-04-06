@@ -1,0 +1,64 @@
+/* StudentRegister.css – Matches Login CSS Aesthetic */
+
+.register {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../../icons/studentfull.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  .register form {
+    background: #00000099;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    transition: all 0.3s ease;
+    max-width: 500px;
+    width: 90%;
+  }
+  
+  .register h2 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+  
+  .register input {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border 0.3s ease;
+  }
+  
+  .register input:focus {
+    border-color: #555;
+    outline: none;
+  }
+  
+  .register button {
+    padding: 12px;
+    background-color: #000;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .register button:hover {
+    background-color: #333;
+  }
+  
